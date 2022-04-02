@@ -1,0 +1,24 @@
+# Run this app locally using: docker-compose up -d --build
+
+version: '3'
+services:
+  nginx:
+    container_name: sociahigh.nginx
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - environment=development
+    image: sociahigh.nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./:/app/
+    networks:
+      sociahigh-network:
+        ipv4_address: '10.1.0.5'
+networks:
+  sociahigh-network:
+    external: true
+    name: sociahigh-network
